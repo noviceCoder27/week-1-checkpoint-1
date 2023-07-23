@@ -4,12 +4,10 @@ import {Card, Typography} from "@mui/material";
 import {useState} from "react";
 import axios from "axios";
 import { BASE_URL } from "../config.js";
-import {useNavigate} from "react-router-dom";
 
-function Signup({setUserEmail}) {
+function Signup() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const navigate = useNavigate()
 
     return <div>
             <div style={{
@@ -54,9 +52,7 @@ function Signup({setUserEmail}) {
                         })
                         let data = response.data;
                         localStorage.setItem("token", data.token);
-                        // window.location = "/"
-                        setUserEmail(email)
-                        navigate("/courses")
+                        window.location = "/"
                     }}
 
                 > Signup</Button>

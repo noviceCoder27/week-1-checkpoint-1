@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 
 
-export const Landing = ({userEmail}) => {
+export const Landing = () => {
     const navigate = useNavigate()
     return <div>
         <Grid container style={{padding: "5vw"}}>
@@ -15,7 +15,7 @@ export const Landing = ({userEmail}) => {
                     <Typography variant={"h5"}>
                         A place to learn, earn and grow
                     </Typography>
-                    {!userEmail && <div style={{display: "flex", marginTop: 20}}>
+                    <div style={{display: "flex", marginTop: 20}}>
                         <div style={{marginRight: 10}}>
                             <Button
                                 size={"large"}
@@ -34,7 +34,7 @@ export const Landing = ({userEmail}) => {
                                 }}
                             >Signin</Button>
                         </div>
-                    </div>}
+                    </div>
                 </div>
                 <div>
                 </div>
