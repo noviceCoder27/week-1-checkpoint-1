@@ -1,10 +1,13 @@
 import {Grid, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
+import { userEmailState } from './../store/selectors/userEmail';
+import { useRecoilValue } from "recoil";
 
 
-export const Landing = ({userEmail}) => {
+export const Landing = () => {
     const navigate = useNavigate()
+    const userEmail = useRecoilValue(userEmailState);
     return <div>
         <Grid container style={{padding: "5vw"}}>
             <Grid item xs={12} md={6} lg={6}>

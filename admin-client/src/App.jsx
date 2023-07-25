@@ -6,13 +6,15 @@ import AddCourse from "./components/AddCourse.jsx";
 import Courses from "./components/Courses";
 import Course from "./components/Course";
 import {Landing} from "./components/Landing.jsx";
-import { useState,useEffect } from 'react';
+import { useEffect } from 'react';
 import { BASE_URL } from "./config.js";
 import axios from "axios";
+import { useSetRecoilState } from 'recoil';
+import { userState } from './store/atoms/user';
+import { ProtectedRoutes } from './ProtectedRoutes';
 
 function App() {
-    const [userEmail, setUserEmail] = useState(null);
-
+    const setUser = useSetRecoilState(userState)
     const init = async() => {
         const response = await axios.get(`${BASE_URL}/admin/me`, {
             headers: {
@@ -21,7 +23,10 @@ function App() {
         })
 
         if (response.data.username) {
-            setUserEmail(response.data.username)
+            setUser({
+                isLoading: false,
+                userEmail: response.data.username
+            })
         }
     };
 
@@ -35,14 +40,14 @@ function App() {
             backgroundColor: "#eeeeee"}}
         >
                 <Router>
-                    <Appbar userEmail={userEmail} setUserEmail={setUserEmail}/>
+                    <Appbar/>
                     <Routes>
-                        <Route path={"/addcourse"} element={<AddCourse />} />
-                        <Route path={"/course/:courseId"} element={<Course />} />
+                        <Route path={"/addcourse"} element={<ProtectedRoutes><AddCourse /></ProtectedRoutes>} />
+                        <Route path={"/course/:courseId"} element={<ProtectedRoutes><Course /></ProtectedRoutes>} />
                         <Route path={"/courses"} element={<Courses/>} />
-                        <Route path={"/signin"} element={<Signin setUserEmail = {setUserEmail}/>} />
-                        <Route path={"/signup"} element={<Signup setUserEmail = {setUserEmail}/>} />
-                        <Route path={"/"} element={<Landing userEmail={userEmail}/>} />
+                        <Route path={"/signin"} element={<Signin />} />
+                        <Route path={"/signup"} element={<Signup />} />
+                        <Route path={"/"} element={<Landing />} />
                     </Routes>
                 </Router>
 
